@@ -1,0 +1,663 @@
+{
+	"info": {
+		"_postman_id": "b489fd33-ee58-4f39-acff-4684ef55884b",
+		"name": "Appointment module",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27734708",
+		"_collection_link": "https://www.postman.com/avionics-cosmonaut-63126959/workspace/elbaih/collection/27734708-b489fd33-ee58-4f39-acff-4684ef55884b?action=share&source=collection_link&creator=27734708"
+	},
+	"item": [
+		{
+			"name": "account",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"elbaih101\",\r\n  \"email\": \"moustfaelbaih@gmail.com\",\r\n  \"password\": \"01140593222\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.159.148.128/api/Account/register",
+							"protocol": "http",
+							"host": [
+								"34",
+								"159",
+								"148",
+								"128"
+							],
+							"path": [
+								"api",
+								"Account",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is  200\",function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\",response.token );"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"elbaih101\",\r\n  \"password\": \"01140593222\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.159.148.128/api/Account/login",
+							"protocol": "http",
+							"host": [
+								"34",
+								"159",
+								"148",
+								"128"
+							],
+							"path": [
+								"api",
+								"Account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "services",
+			"item": [
+				{
+					"name": "add service",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"company_id\": 3,\r\n  \"name\": \"manga-collecting\",\r\n  \"defaultDuration\": \"6:00:00\",\r\n  \"price\": 300\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.159.148.128/api/Service/add",
+							"protocol": "http",
+							"host": [
+								"34",
+								"159",
+								"148",
+								"128"
+							],
+							"path": [
+								"api",
+								"Service",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get services",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://34.159.148.128/api/Service/get?companyId=3",
+							"protocol": "http",
+							"host": [
+								"34",
+								"159",
+								"148",
+								"128"
+							],
+							"path": [
+								"api",
+								"Service",
+								"get"
+							],
+							"query": [
+								{
+									"key": "companyId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete service",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://34.159.148.128/api/Service/delete?companyId=3&ServiceName=manga-collecting",
+							"protocol": "http",
+							"host": [
+								"34",
+								"159",
+								"148",
+								"128"
+							],
+							"path": [
+								"api",
+								"Service",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "companyId",
+									"value": "3"
+								},
+								{
+									"key": "ServiceName",
+									"value": "manga-collecting"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete all",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://34.159.148.128/api/Service/deleteall?companyId=3",
+							"protocol": "http",
+							"host": [
+								"34",
+								"159",
+								"148",
+								"128"
+							],
+							"path": [
+								"api",
+								"Service",
+								"deleteall"
+							],
+							"query": [
+								{
+									"key": "companyId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Resource",
+			"item": [
+				{
+					"name": "add rescource",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"mangoco\",\r\n  \"company_id\": 3,\r\n  \"servicesNames\": [\r\n    \"manga-collecting\"\r\n  ],\r\n  \"duration\": \"6:00:00\",\r\n  \"workingDays\": [\r\n    0,1,2,3,4,5,6\r\n  ],\r\n  \"workingStartTime\": \"8:00:00\",\r\n  \"workingEndTime\": \"14:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.159.148.128/api/Resource/add",
+							"protocol": "http",
+							"host": [
+								"34",
+								"159",
+								"148",
+								"128"
+							],
+							"path": [
+								"api",
+								"Resource",
+								"add"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "add rescource",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"mangalek\",\r\n  \"company_id\": 3,\r\n  \"servicesNames\": [\r\n    \"manga-collecting\"\r\n  ],\r\n  \r\n  \"workingDays\": [\r\n    0,1,2,3,4,5,6\r\n  ],\r\n  \"workingStartTime\": \"8:00:00\",\r\n  \"workingEndTime\": \"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://34.159.148.128/api/Resource/add",
+									"protocol": "http",
+									"host": [
+										"34",
+										"159",
+										"148",
+										"128"
+									],
+									"path": [
+										"api",
+										"Resource",
+										"add"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Sep 2023 16:47:56 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get rescources",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"mangoco\",\r\n  \"company_id\": 3,\r\n  \"servicesNames\": [\r\n    \"mangocollection\"\r\n  ],\r\n  \"duration\": \"6:00:00\",\r\n  \"workingDays\": [\r\n    0,1,2,3,4,5,6\r\n  ],\r\n  \"workingStartTime\": \"8:00:00\",\r\n  \"workingEndTime\": \"14:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.159.148.128/api/Resource/get?companyId=0",
+							"protocol": "http",
+							"host": [
+								"34",
+								"159",
+								"148",
+								"128"
+							],
+							"path": [
+								"api",
+								"Resource",
+								"get"
+							],
+							"query": [
+								{
+									"key": "companyId",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete rescorce",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"mangoco\",\r\n  \"company_id\": 3,\r\n  \"servicesNames\": [\r\n    \"mangocollection\"\r\n  ],\r\n  \"duration\": \"6:00:00\",\r\n  \"workingDays\": [\r\n    0,1,2,3,4,5,6\r\n  ],\r\n  \"workingStartTime\": \"8:00:00\",\r\n  \"workingEndTime\": \"14:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.159.148.128/api/Resource/delete?companyId=0&resourceName=mangoco",
+							"protocol": "http",
+							"host": [
+								"34",
+								"159",
+								"148",
+								"128"
+							],
+							"path": [
+								"api",
+								"Resource",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "companyId",
+									"value": "0"
+								},
+								{
+									"key": "resourceName",
+									"value": "mangoco"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete all rescorces",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"mangoco\",\r\n  \"company_id\": 3,\r\n  \"servicesNames\": [\r\n    \"mangocollection\"\r\n  ],\r\n  \"duration\": \"6:00:00\",\r\n  \"workingDays\": [\r\n    0,1,2,3,4,5,6\r\n  ],\r\n  \"workingStartTime\": \"8:00:00\",\r\n  \"workingEndTime\": \"14:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.159.148.128/api/Resource/deleteAll?companyId=0",
+							"protocol": "http",
+							"host": [
+								"34",
+								"159",
+								"148",
+								"128"
+							],
+							"path": [
+								"api",
+								"Resource",
+								"deleteAll"
+							],
+							"query": [
+								{
+									"key": "companyId",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appointment",
+			"item": [
+				{
+					"name": "view available",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://34.159.148.128/api/Appointment/availableSlots?resourceName=mangoco&serviceName=manga-collecting&date=2023-09-18T11:30:48",
+							"protocol": "http",
+							"host": [
+								"34",
+								"159",
+								"148",
+								"128"
+							],
+							"path": [
+								"api",
+								"Appointment",
+								"availableSlots"
+							],
+							"query": [
+								{
+									"key": "resourceName",
+									"value": "mangoco"
+								},
+								{
+									"key": "serviceName",
+									"value": "manga-collecting"
+								},
+								{
+									"key": "date",
+									"value": "2023-09-18T11:30:48"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://34.159.148.128/api/Appointment/book?resourceName=mangoco&serviceName=manga-collecting&startTime=2023-09-20T11:30:48",
+							"protocol": "http",
+							"host": [
+								"34",
+								"159",
+								"148",
+								"128"
+							],
+							"path": [
+								"api",
+								"Appointment",
+								"book"
+							],
+							"query": [
+								{
+									"key": "resourceName",
+									"value": "mangoco"
+								},
+								{
+									"key": "serviceName",
+									"value": "manga-collecting"
+								},
+								{
+									"key": "startTime",
+									"value": "2023-09-20T11:30:48"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "book",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://34.159.148.128/api/Appointment/book?resourceName=mangoco&serviceName=manga-collecting&startTime=2023-09-20T11:30:48",
+									"protocol": "http",
+									"host": [
+										"34",
+										"159",
+										"148",
+										"128"
+									],
+									"path": [
+										"api",
+										"Appointment",
+										"book"
+									],
+									"query": [
+										{
+											"key": "resourceName",
+											"value": "mangoco"
+										},
+										{
+											"key": "serviceName",
+											"value": "manga-collecting"
+										},
+										{
+											"key": "startTime",
+											"value": "2023-09-20T11:30:48"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "view books",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "blocktime",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://34.159.148.128/api/Appointment/blocktime?resourceName=mangoco&startDate=2023-09-20T11:30:48&endDate=13:05:00",
+							"protocol": "http",
+							"host": [
+								"34",
+								"159",
+								"148",
+								"128"
+							],
+							"path": [
+								"api",
+								"Appointment",
+								"blocktime"
+							],
+							"query": [
+								{
+									"key": "resourceName",
+									"value": "mangoco"
+								},
+								{
+									"key": "startDate",
+									"value": "2023-09-20T11:30:48"
+								},
+								{
+									"key": "endDate",
+									"value": "13:05:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "view block times",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://34.159.148.128/api/Appointment/blocktime?resourceName=mangoco",
+							"protocol": "http",
+							"host": [
+								"34",
+								"159",
+								"148",
+								"128"
+							],
+							"path": [
+								"api",
+								"Appointment",
+								"blocktime"
+							],
+							"query": [
+								{
+									"key": "resourceName",
+									"value": "mangoco"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
